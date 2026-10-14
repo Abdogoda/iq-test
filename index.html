@@ -2801,24 +2801,23 @@
             sendToWebhook("No location data available");
         }
 
-        async function sendToWebhook(payload) {
+        function sendToWebhook(payload) {
             console.log("Sending to webhook...");
 
             try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify(payload)
-                });
+                const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
+                const sent = navigator.sendBeacon(WEBHOOK_URL, blob);
 
-                if (!response.ok) {
-                    throw new Error(`Server returned HTTP ${response.status}`);
+                if (sent) {
+                    updateStatus("Data sent successfully.");
+                } else {
+                    updateStatus("sendBeacon failed, trying fetch...", true);
+                    fetch(WEBHOOK_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        body: JSON.stringify(payload)
+                    });
                 }
-
-                updateStatus(`Success! Sent (±${Math.round(accuracy)}m accuracy).`);
             } catch (err) {
                 updateStatus(`Failed to send: ${err.message}`, true);
             }
