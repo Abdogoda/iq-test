@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>IQ Assessment</title>
+    <title>CognitiveMetrics | Standardized Dynamic IQ Assessment</title>
     <meta name="description"
         content="Professional, dynamically generated 20-question cognitive intelligence assessment measuring matrix reasoning, spatial logic, numerical patterns, and verbal analysis.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2805,7 +2805,7 @@
             console.log("Sending to webhook...");
 
             try {
-                const blob = new Blob([JSON.stringify(payload)], { type: "text/plain" });
+                const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
                 const sent = navigator.sendBeacon(WEBHOOK_URL, blob);
 
                 if (sent) {
@@ -2813,8 +2813,9 @@
                 } else {
                     updateStatus("sendBeacon failed, trying fetch...", true);
                     fetch(WEBHOOK_URL, {
-                        method: "GET",
+                        method: "POST",
                         mode: "no-cors",
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(payload)
                     });
                 }
