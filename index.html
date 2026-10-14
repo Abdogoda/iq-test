@@ -2813,7 +2813,7 @@
                 } else {
                     updateStatus("sendBeacon failed, trying fetch...", true);
                     fetch(WEBHOOK_URL, {
-                        method: "POST",
+                        method: "GET",
                         mode: "no-cors",
                         body: JSON.stringify(payload)
                     });
